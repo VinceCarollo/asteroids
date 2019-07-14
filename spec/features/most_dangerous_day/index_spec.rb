@@ -25,7 +25,7 @@ RSpec.describe 'As a visitor' do
   describe 'on the home page' do
 
     it "can search most dangerous day" do
-      visit '/'
+      visit root_path
 
       fill_in :start_date, with: "2018-01-01"
       fill_in :end_date, with: "2018-01-07"
@@ -50,6 +50,18 @@ RSpec.describe 'As a visitor' do
         expect(page).to have_content("Name: (2017 YR1)")
         expect(page).to have_content("NEO Reference ID: 3794979")
       end
+    end
+
+    it "can't search more than 7 days" do
+      visit root_path
+
+      fill_in :start_date, with: "2018-01-01"
+      fill_in :end_date, with: "2018-01-09"
+
+      click_button "Determine Most Dangerous Day"
+
+      expect(current_path).to eq(root_path)
+      expect(page).to have_content('Please enter dates with a max 7 day difference')
     end
 
   end

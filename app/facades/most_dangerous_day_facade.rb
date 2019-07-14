@@ -1,7 +1,7 @@
 class MostDangerousDayFacade
   def initialize(start_date, end_date)
-    @start_date = start_date
-    @end_date = end_date
+    @start_date = start_date.to_datetime.strftime('%F')
+    @end_date = end_date.to_datetime.strftime('%F')
   end
 
   def search_range
@@ -24,7 +24,6 @@ class MostDangerousDayFacade
     end
 
     asteroids_by_day_data = JSON.parse(response.body, symbolize_names: true)[:near_earth_objects]
-
     days = asteroids_by_day_data.map do |day_data|
       Day.new(day_data)
     end
