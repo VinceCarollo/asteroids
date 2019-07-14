@@ -13,17 +13,7 @@ class MostDangerousDayFacade
   end
 
   def most_dangerous_day
-    conn = Faraday.new(url: 'https://api.nasa.gov') do |faraday|
-      faraday.adapter Faraday.default_adapter
-      faraday.params['api_key'] = ENV['NASA_KEY']
-    end
-
-    response = conn.get('/neo/rest/v1/feed') do |req|
-      req.params['start_date'] = start_date
-      req.params['end_date'] = end_date
-    end
-
-    asteroids_by_day_data = JSON.parse(response.body, symbolize_names: true)[:near_earth_objects]
+    asteroids_by_day_data = service.asteroids_by_day_data(start_date, end_date)
     days = asteroids_by_day_data.map do |day_data|
       Day.new(day_data)
     end
@@ -34,4 +24,8 @@ class MostDangerousDayFacade
   private
 
   attr_reader :start_date, :end_date
+
+  def service
+    NasaService.new
+  end
 end
