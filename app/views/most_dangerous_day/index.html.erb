@@ -1,0 +1,11 @@
+<h2>For Range:</h2>
+<%= facade.search_range %>
+<section id='most-dangerous-day'>
+  <p>Most Dangerous Day: <%= facade.most_dangerous_day.date %></p>
+  <% facade.asteroids_for_day.each do |asteroid| %>
+    <ul class='asteroid'>
+      <li>Name: <%= asteroid.name %></li>
+      <li>NEO Reference ID: <%= asteroid.neo_id %></li>
+    </ul>
+  <% end %>
+</section>
