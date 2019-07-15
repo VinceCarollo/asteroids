@@ -76,5 +76,22 @@ RSpec.describe 'As a visitor' do
       expect(page).to have_content('Please Enter Dates 7 Days or Less Apart')
     end
 
+    it "it can take datetime form inputs" do
+      visit root_path
+
+      fill_in :start_date, with: "1 July, 2019"
+      fill_in :end_date, with: "4 July, 2019"
+
+      click_button "Determine Most Dangerous Day"
+
+      within "#most-dangerous-day" do
+        expect(page).to have_content('Most Dangerous Day: July 4, 2019')
+        expect(page).to have_css('.asteroid', count: 2)
+
+        expect(page).to have_content("Name: (2014 QO296)")
+        expect(page).to have_content("NEO Reference ID: 3683806")
+      end
+    end
+
   end
 end

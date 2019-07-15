@@ -1,6 +1,6 @@
 class MostDangerousDayController < ApplicationController
   def index
-    if date_validation && range_length < 7
+    if (form_date_validation || date_validation) && range_length < 7
         render locals: {
           facade: MostDangerousDayFacade.new(start_date, end_date)
         }
@@ -11,6 +11,12 @@ class MostDangerousDayController < ApplicationController
   end
 
   private
+
+  def form_date_validation
+    start_valid = DateTime.parse(start_date) rescue nil
+    end_valid = DateTime.parse(end_date) rescue nil
+    start_valid && end_valid
+  end
 
   def date_validation
     start_day, start_month, start_year = start_date.split('-')
