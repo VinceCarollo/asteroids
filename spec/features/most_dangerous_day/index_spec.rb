@@ -61,7 +61,19 @@ RSpec.describe 'As a visitor' do
       click_button "Determine Most Dangerous Day"
 
       expect(current_path).to eq(root_path)
-      expect(page).to have_content('Please enter dates with a max 7 day difference')
+      expect(page).to have_content('Please Enter Dates 7 Days or Less Apart')
+    end
+
+    it "can't search if dates invalid" do
+      visit root_path
+
+      fill_in :start_date, with: "aaa"
+      fill_in :end_date, with: "2018-01-09"
+
+      click_button "Determine Most Dangerous Day"
+
+      expect(current_path).to eq(root_path)
+      expect(page).to have_content('Please Enter Dates 7 Days or Less Apart')
     end
 
   end
