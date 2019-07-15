@@ -38,7 +38,8 @@ RSpec.describe 'As a visitor' do
       expect(page).to have_content("January 1, 2018 - January 7, 2018")
 
       within "#most-dangerous-day" do
-        expect(page).to have_content('Most Dangerous Day: January 1, 2018')
+        expect(page).to have_content('Most Dangerous Day:')
+        expect(page).to have_content('January 1, 2018')
         expect(page).to have_css('.asteroid', count: 3)
 
         expect(page).to have_content("Name: (2001 LD)")
@@ -85,7 +86,8 @@ RSpec.describe 'As a visitor' do
       click_button "Determine Most Dangerous Day"
 
       within "#most-dangerous-day" do
-        expect(page).to have_content('Most Dangerous Day: July 4, 2019')
+        expect(page).to have_content('Most Dangerous Day:')
+        expect(page).to have_content("July 4, 2019")
         expect(page).to have_css('.asteroid', count: 2)
 
         expect(page).to have_content("Name: (2014 QO296)")
