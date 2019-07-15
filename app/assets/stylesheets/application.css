@@ -167,3 +167,11 @@ nav {
 .date-search.btn {
   background-color:#FFF;
 }
+
+.flash {
+  text-align: center;
+}
+
+#dangerous-search-results {
+  text-align: center;
+}
