@@ -14,7 +14,9 @@ class MostDangerousDayFacade
 
   def most_dangerous_day
     @asteroids_by_day_data ||= service.asteroids_by_day_data(start_date, end_date)
-    @days ||= @asteroids_by_day_data.map{|day_data| Day.new(day_data)}.compact
+    @days ||= @asteroids_by_day_data.map do |day_data|
+      Day.new(day_data)
+    end.compact
 
     @days.max_by{|day|  day.asteroids.length}
   end
