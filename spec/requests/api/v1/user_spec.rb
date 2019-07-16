@@ -34,20 +34,18 @@ describe "GET /user" do
 end
 
 describe "GET /user/favorites" do
-  xit "returns favorites with valid api key" do
+  it "returns favorites with valid api key" do
     uncle_jesse = create(:user)
     uncle_jesse.create_api_key(value: 'abc123')
-    uncle_jesse.favorites.create(neo_reference_id: "2153306")
+    fav = uncle_jesse.favorites.create(neo_reference_id: "2153306")
 
     get '/api/v1/user/favorites?api_key=abc123'
-
-    favorites = JSON.parse(response.body)
-
+    favorites = JSON.parse(response.body, symbolize_names: true)
     expected = [
                 {
-                  "id":1,
+                  "id": fav.id,
                   "neo_reference_id": "2153306",
-                  "user_id": 1,
+                  "user_id": uncle_jesse.id,
                   "asteroid": {
                     "name": "153306 (2001 JL1)",
                     "is_potentially_hazardous_asteroid": false,
@@ -55,6 +53,6 @@ describe "GET /user/favorites" do
                 }
               ]
 
-    expect(favorites).to eq(expected)
+    expect([favorites[:data].first[:attributes]]).to eq(expected)
   end
 end

@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20180410152106) do
 
   create_table "favorites", force: :cascade do |t|
     t.string "neo_reference_id"
+    t.string "name"
+    t.boolean "is_potentially_hazardous_asteroid"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

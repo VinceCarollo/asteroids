@@ -25,6 +25,7 @@ group :development, :test do
   gem 'pry'
   gem 'launchy'
   gem 'fast_jsonapi'
+  gem 'shoulda-matchers'
 end
 
 group :development do
